@@ -263,10 +263,12 @@ async function handleQuery(phoneNumber, user, userMessage) {
                     reply += `⚠️ Los gastos hormiga representan el ${antPercentage}% de tus gastos totales.\n\n`;
 
                     if (antPercentage > 15) {
-                        reply += `💡 *Recomendación:* Si reduces tus gastos hormiga en 20%, ahorrarías $${(stats.antExpenses.total * 0.2).toFixed(2)} al mes.`;
+                        reply += `💡 *Recomendación:* Si reduces tus gastos hormiga en 20%, ahorrarías $${(stats.antExpenses.total * 0.2).toFixed(2)} al mes.\n\n`;
                     }
                 }
             }
+
+            reply += `📊 _Escribe "ver dashboard" para ver gráficas detalladas_`;
 
             await sendMessage(phoneNumber, reply);
 
@@ -281,8 +283,10 @@ async function handleQuery(phoneNumber, user, userMessage) {
 
             if (stats.antExpenseCount > 0) {
                 const avgPerDay = (stats.antExpenseTotal / 7).toFixed(2);
-                reply += `📈 Promedio diario en gastos hormiga: $${avgPerDay}`;
+                reply += `📈 Promedio diario en gastos hormiga: $${avgPerDay}\n\n`;
             }
+
+            reply += `📊 _Escribe "ver dashboard" para ver gráficas detalladas_`;
 
             await sendMessage(phoneNumber, reply);
 
@@ -304,12 +308,28 @@ async function handleQuery(phoneNumber, user, userMessage) {
 
             await sendMessage(phoneNumber, reply);
 
+        } else if (lowerMessage.includes('dashboard') || lowerMessage.includes('visual') || lowerMessage.includes('grafica') || lowerMessage.includes('gráfica') || lowerMessage.includes('detalle') || lowerMessage.includes('completo')) {
+            await sendMessage(phoneNumber,
+                `📊 *Dashboard Visual*\n\n` +
+                `Para ver tus estadísticas de forma más visual y detallada, visita tu dashboard personal:\n\n` +
+                `🔗 https://elmatador.adfay.io/\n\n` +
+                `*Instrucciones:*\n` +
+                `1️⃣ Abre el enlace en tu navegador\n` +
+                `2️⃣ Ingresa tu número de teléfono (sin espacios ni guiones)\n` +
+                `3️⃣ Explora tus gráficas y estadísticas\n\n` +
+                `Ahí podrás ver:\n` +
+                `• 📈 Gráficas de gastos por categoría\n` +
+                `• 📅 Historial detallado de transacciones\n` +
+                `• 🐜 Análisis de gastos hormiga\n` +
+                `• 💰 Tendencias de ahorro`
+            );
         } else {
             await sendMessage(phoneNumber,
                 `Puedo mostrarte:\n\n` +
                 `• "Resumen del mes"\n` +
                 `• "Resumen de la semana"\n` +
-                `• "Mis gastos hormiga"\n\n` +
+                `• "Mis gastos hormiga"\n` +
+                `• "Ver dashboard" - Para gráficas detalladas 📊\n\n` +
                 `¿Qué te gustaría ver?`
             );
         }
@@ -320,9 +340,38 @@ async function handleQuery(phoneNumber, user, userMessage) {
     }
 }
 
+// Función para simular delay humano
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Calcular tiempo de escritura basado en longitud del mensaje
+function getTypingDelay(text) {
+    const baseDelay = 500; // Delay mínimo
+    const charsPerSecond = 30; // Velocidad de escritura simulada
+    const calculatedDelay = (text.length / charsPerSecond) * 1000;
+    // Entre 1 y 4 segundos máximo
+    return Math.min(Math.max(calculatedDelay, baseDelay), 4000);
+}
+
 async function sendMessage(phoneNumber, text) {
     try {
         const jid = phoneNumber.includes('@') ? phoneNumber : `${phoneNumber}@s.whatsapp.net`;
+
+        // Simular que está escribiendo
+        await sock.sendPresenceUpdate('composing', jid);
+
+        // Esperar tiempo proporcional al mensaje
+        const typingTime = getTypingDelay(text);
+        await delay(typingTime);
+
+        // Pausar el estado de escribiendo
+        await sock.sendPresenceUpdate('paused', jid);
+
+        // Pequeño delay antes de enviar
+        await delay(200);
+
+        // Enviar mensaje
         await sock.sendMessage(jid, { text });
     } catch (error) {
         console.error('Error enviando mensaje:', error);
