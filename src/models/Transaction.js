@@ -12,6 +12,9 @@ class Transaction {
         `);
 
         const now = new Date();
+        const month = data.month || now.getMonth() + 1;
+        const year = data.year || now.getFullYear();
+
         const info = stmt.run(
             data.userId,
             data.phoneNumber,
@@ -19,13 +22,27 @@ class Transaction {
             data.category,
             data.amount,
             data.description,
-            data.originalMessage,
-            data.month || now.getMonth() + 1,
-            data.year || now.getFullYear(),
+            data.originalMessage || '',
+            month,
+            year,
             data.isRecurring || 0
         );
 
-        return this.findById(info.lastInsertRowid);
+        // Retornar objeto con los datos insertados (más confiable que buscar por ID)
+        return {
+            id: info.lastInsertRowid,
+            user_id: data.userId,
+            phone_number: data.phoneNumber,
+            type: data.type,
+            category: data.category,
+            amount: data.amount,
+            description: data.description,
+            original_message: data.originalMessage || '',
+            month,
+            year,
+            is_recurring: data.isRecurring || 0,
+            date: now.toISOString()
+        };
     }
 
     // Buscar por ID
