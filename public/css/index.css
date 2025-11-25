@@ -1,0 +1,131 @@
+/* Estilos específicos para la página de login/index */
+
+.nav-tagline {
+    color: var(--gray);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.login-section {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+}
+
+.section-subtitle {
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.login-form {
+    margin-top: 1.5rem;
+}
+
+.login-form .input-group {
+    margin-bottom: 1.5rem;
+}
+
+.login-form .input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.login-form .input-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--light-gray);
+}
+
+.login-form .input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(103, 58, 183, 0.1);
+}
+
+.login-form .btn-primary {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-form .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(103, 58, 183, 0.3);
+    background: var(--primary-dark);
+}
+
+.login-form .btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Feature cards específicos */
+.summary-card.feature {
+    background: var(--white);
+}
+
+.summary-card.feature::before {
+    background: var(--primary-color);
+}
+
+.summary-card.feature .card-icon {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: var(--white);
+    font-size: 1.5rem;
+}
+
+.summary-card.feature .card-content h3 {
+    font-size: 1rem;
+    color: var(--dark);
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-bottom: 0.5rem;
+}
+
+.feature-text {
+    color: var(--gray);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Footer section */
+.footer-section {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+}
+
+.footer-section:hover {
+    box-shadow: none;
+}
+
+.footer-content p {
+    color: var(--gray);
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .nav-tagline {
+        display: none;
+    }
+
+    .login-section {
+        margin: 0 auto 1.5rem;
+    }
+}

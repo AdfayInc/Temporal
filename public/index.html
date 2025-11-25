@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Matador - Cazador de Gastos Hormiga</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1>El Matador</h1>
+            <div class="nav-tagline">
+                <span>Tu Cazador Personal de Gastos Hormiga</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Login Section -->
+        <section class="login-section">
+            <h2>Accede a tu Dashboard</h2>
+            <p class="section-subtitle">Ingresa tu número de teléfono para ver tus estadísticas</p>
+
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="phoneNumber">Número de Teléfono</label>
+                    <input
+                        type="tel"
+                        id="phoneNumber"
+                        placeholder="5512345678"
+                        required
+                        pattern="[0-9]{10}"
+                        title="Ingresa un número de 10 dígitos"
+                    >
+                </div>
+                <button type="submit" class="btn-primary">Ver Mi Dashboard</button>
+            </form>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2>¿Cómo funciona?</h2>
+            <div class="summary-cards">
+                <div class="summary-card feature">
+                    <div class="card-icon">💬</div>
+                    <div class="card-content">
+                        <h3>1. Envía mensajes</h3>
+                        <p class="feature-text">Habla naturalmente por WhatsApp: "Compré un café de $25"</p>
+                    </div>
+                </div>
+                <div class="summary-card feature">
+                    <div class="card-icon">🤖</div>
+                    <div class="card-content">
+                        <h3>2. El Matador registra</h3>
+                        <p class="feature-text">La IA clasifica automáticamente tus gastos e ingresos</p>
+                    </div>
+                </div>
+                <div class="summary-card feature">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <h3>3. Visualiza tu progreso</h3>
+                        <p class="feature-text">Mira tus estadísticas detalladas en este dashboard</p>
+                    </div>
+                </div>
+                <div class="summary-card feature">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <h3>4. Ahorra dinero</h3>
+                        <p class="feature-text">Recibe consejos y controla tus gastos hormiga</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <section class="footer-section">
+            <div class="footer-content">
+                <p>El Matador - Sistema de Control Financiero Personal</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="/js/login.js"></script>
+</body>
+</html>

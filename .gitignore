@@ -1,0 +1,46 @@
+# Dependencias
+node_modules/
+package-lock.json
+yarn.lock
+
+# Variables de entorno
+.env
+
+# Baileys WhatsApp Auth
+auth_info_baileys/
+
+# Sesión de WhatsApp (legacy)
+.wwebjs_auth/
+.wwebjs_cache/
+
+# SQLite Database
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build
+dist/
+build/
+
+# Archivos temporales
+tmp/
+temp/
