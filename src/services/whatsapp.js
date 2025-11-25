@@ -1,8 +1,4 @@
-import makeWASocket, {
-    DisconnectReason,
-    useMultiFileAuthState,
-    fetchLatestBaileysVersion
-} from '@whiskeysockets/baileys';
+import { makeWASocket, DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion } from 'baileys';
 import qrcode from 'qrcode-terminal';
 import pino from 'pino';
 import { Boom } from '@hapi/boom';
