@@ -52,12 +52,17 @@ export async function checkDeepSeekStatus() {
 
 // Función para limpiar y parsear respuesta JSON de la IA
 function parseAIResponse(aiResponse) {
+    let cleanResponse = aiResponse;
+
+    // Remover bloques de código markdown (```json ... ``` o ``` ... ```)
+    cleanResponse = cleanResponse.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+
     // Intentar parsear directamente
     try {
-        return JSON.parse(aiResponse);
+        return JSON.parse(cleanResponse);
     } catch (e) {
         // Buscar JSON dentro del texto (a veces la IA agrega texto antes/después)
-        const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+        const jsonMatch = cleanResponse.match(/\{[\s\S]*\}/);
         if (jsonMatch) {
             try {
                 return JSON.parse(jsonMatch[0]);
