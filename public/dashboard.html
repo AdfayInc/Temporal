@@ -20,9 +20,35 @@
     </nav>
 
     <div class="dashboard-container">
+        <!-- Filtros de Fecha -->
+        <section class="filters-section">
+            <div class="filters-container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="today">Hoy</button>
+                    <button class="filter-btn" data-filter="week">Semana</button>
+                    <button class="filter-btn" data-filter="month">Mes</button>
+                    <button class="filter-btn" data-filter="custom">Personalizado</button>
+                </div>
+                <div class="custom-date-range" id="customDateRange" style="display: none;">
+                    <input type="date" id="startDate">
+                    <span>a</span>
+                    <input type="date" id="endDate">
+                    <button class="apply-btn" id="applyDateRange">Aplicar</button>
+                </div>
+                <div class="export-buttons">
+                    <button class="export-btn" id="exportCSV">📥 Exportar CSV</button>
+                    <button class="export-btn" id="exportExcel">📊 Exportar Excel</button>
+                </div>
+            </div>
+            <div class="auto-refresh-indicator">
+                <span class="refresh-dot"></span>
+                <span id="lastUpdate">Actualizado hace 0s</span>
+            </div>
+        </section>
+
         <!-- Resumen General -->
         <section class="summary-section">
-            <h2>Resumen del Mes</h2>
+            <h2 id="summaryTitle">Resumen del Mes</h2>
             <div class="summary-cards">
                 <div class="summary-card income">
                     <div class="card-icon">💵</div>

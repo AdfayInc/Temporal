@@ -87,14 +87,21 @@ REGLAS OBLIGATORIAS DE RESPUESTA:
 TIPOS DE TRANSACCIÓN:
 - income: Sueldo, pagos, ingresos, me pagaron, cobré, gané
 - fixed_expense: Renta, luz, agua, gas, internet, seguros, deudas
-- variable_expense: Super, gasolina, ropa, entretenimiento
-- ant_expense: Café, snacks, takis, papas, refresco, dulces, comida rápida, uber eats, rappi, antojos, chicles, cigarros
+- variable_expense: Super, gasolina, ropa, entretenimiento grande
+- ant_expense: Café, snacks, takis, papas, refresco, dulces, comida rápida, uber eats, rappi, antojos, chicles
 
-CATEGORÍAS:
+CATEGORÍAS EXACTAS (usa estos nombres tal cual):
 - Ingresos: "Sueldo Fijo", "Ingresos por Freelance", "Bonos o Comisiones Variables"
 - Fijos: "Renta o Hipotecario", "Servicios Fijos (Luz, Agua, Gas)", "Telefonía e Internet"
 - Variables: "Supermercado y Comida", "Entretenimiento", "Gasolina o Mantenimiento de Auto"
-- Hormiga: "Café o bebida diaria", "Snacks y golosinas", "Comida a domicilio", "Compras impulsivas en línea"
+- Hormiga: "Café o bebida diaria", "Snacks y golosinas", "Comida a domicilio", "Compras impulsivas en línea", "Cigarros y vicios", "Bebidas alcohólicas"
+
+REGLAS DE CATEGORIZACIÓN:
+- Cerveza, chela, alcohol, vino, copa = "Bebidas alcohólicas" (ant_expense)
+- Cigarro, cigarros, tabaco, vape = "Cigarros y vicios" (ant_expense)
+- Café, starbucks, bebida caliente = "Café o bebida diaria" (ant_expense)
+- Takis, papas, dulces, chicles, galletas = "Snacks y golosinas" (ant_expense)
+- Uber eats, rappi, didi food = "Comida a domicilio" (ant_expense)
 
 FORMATO DE RESPUESTA (copia exactamente esta estructura):
 
