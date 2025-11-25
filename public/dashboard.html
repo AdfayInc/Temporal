@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - El Matador</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1>El Matador</h1>
+            <div class="user-info">
+                <span id="userName">Cargando...</span>
+                <span id="userLevel" class="badge">Nivel: ...</span>
+                <button id="logoutBtn" class="logout-btn">Cerrar sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Resumen General -->
+        <section class="summary-section">
+            <h2>Resumen del Mes</h2>
+            <div class="summary-cards">
+                <div class="summary-card income">
+                    <div class="card-icon">💵</div>
+                    <div class="card-content">
+                        <h3>Ingresos</h3>
+                        <p class="amount" id="totalIncome">$0</p>
+                    </div>
+                </div>
+                <div class="summary-card expense">
+                    <div class="card-icon">💸</div>
+                    <div class="card-content">
+                        <h3>Gastos Totales</h3>
+                        <p class="amount" id="totalExpenses">$0</p>
+                    </div>
+                </div>
+                <div class="summary-card ant">
+                    <div class="card-icon">🐜</div>
+                    <div class="card-content">
+                        <h3>Gastos Hormiga</h3>
+                        <p class="amount" id="antExpenses">$0</p>
+                        <p class="count" id="antCount">0 transacciones</p>
+                    </div>
+                </div>
+                <div class="summary-card balance">
+                    <div class="card-icon">💰</div>
+                    <div class="card-content">
+                        <h3>Balance</h3>
+                        <p class="amount" id="balance">$0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Desglose por Categoría -->
+        <section class="breakdown-section">
+            <h2>Desglose por Categoría</h2>
+            <div class="tabs">
+                <button class="tab active" data-type="ant_expense">Gastos Hormiga</button>
+                <button class="tab" data-type="fixed_expense">Gastos Fijos</button>
+                <button class="tab" data-type="variable_expense">Gastos Variables</button>
+                <button class="tab" data-type="income">Ingresos</button>
+            </div>
+            <div id="categoryBreakdown" class="category-list">
+                <p class="loading">Cargando datos...</p>
+            </div>
+        </section>
+
+        <!-- Transacciones Recientes -->
+        <section class="transactions-section">
+            <h2>Transacciones Recientes</h2>
+            <div id="transactionsList" class="transactions-list">
+                <p class="loading">Cargando transacciones...</p>
+            </div>
+        </section>
+
+        <!-- Consejos y Gamificación -->
+        <section class="insights-section">
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3>Tu Progreso</h3>
+                    <div class="progress-info">
+                        <p>Nivel: <strong id="levelDisplay">Cargando...</strong></p>
+                        <p>Puntos: <strong id="pointsDisplay">0</strong></p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <h3>Análisis Inteligente</h3>
+                    <div id="aiInsights">
+                        <p class="loading">Generando análisis...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "bot-finanzas",
+  "version": "1.0.0",
+  "description": "El Matador - Asistente financiero inteligente con WhatsApp y DeepSeek AI",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["whatsapp", "bot", "finanzas", "deepseek", "ai", "baileys"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.8",
+    "@hapi/boom": "^10.0.1",
+    "qrcode-terminal": "^0.12.0",
+    "express": "^4.18.2",
+    "better-sqlite3": "^11.0.0",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "moment": "^2.29.4",
+    "pino": "^8.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "private": true
+}
