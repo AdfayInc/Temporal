@@ -5,7 +5,70 @@ import { ALL_CATEGORIES } from '../config/categories.js';
 dotenv.config();
 
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
-const DEEPSEEK_API_URL = process.env.DEEPSEEK_API_URL;
+const DEEPSEEK_API_URL = process.env.DEEPSEEK_API_URL || 'https://api.deepseek.com/v1/chat/completions';
+
+// Variable para saber si DeepSeek está funcionando
+let deepseekWorking = null;
+
+// Función para verificar si DeepSeek está disponible
+export async function checkDeepSeekStatus() {
+    if (!DEEPSEEK_API_KEY) {
+        console.log('⚠️ DEEPSEEK_API_KEY no configurada');
+        deepseekWorking = false;
+        return false;
+    }
+
+    try {
+        console.log('🔄 Verificando conexión con DeepSeek...');
+        const response = await axios.post(
+            DEEPSEEK_API_URL,
+            {
+                model: 'deepseek-chat',
+                messages: [
+                    { role: 'user', content: 'Responde solo: OK' }
+                ],
+                max_tokens: 10
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                timeout: 10000
+            }
+        );
+
+        if (response.data?.choices?.[0]) {
+            console.log('✅ DeepSeek está funcionando correctamente');
+            deepseekWorking = true;
+            return true;
+        }
+    } catch (error) {
+        console.error('❌ DeepSeek no está disponible:', error.response?.data?.error?.message || error.message);
+        deepseekWorking = false;
+    }
+    return false;
+}
+
+// Función para limpiar y parsear respuesta JSON de la IA
+function parseAIResponse(aiResponse) {
+    // Intentar parsear directamente
+    try {
+        return JSON.parse(aiResponse);
+    } catch (e) {
+        // Buscar JSON dentro del texto (a veces la IA agrega texto antes/después)
+        const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            try {
+                return JSON.parse(jsonMatch[0]);
+            } catch (e2) {
+                console.log('⚠️ No se pudo parsear JSON extraído:', jsonMatch[0]);
+            }
+        }
+        console.log('⚠️ Respuesta no es JSON válido:', aiResponse);
+        return null;
+    }
+}
 
 // Sistema de prompts para El Matador
 const SYSTEM_PROMPT = `Eres "El Matador", un asistente financiero amigable y directo que ayuda a las personas a controlar sus gastos hormiga.
@@ -98,19 +161,21 @@ export async function processMessage(userMessage, userContext = {}) {
         );
 
         const aiResponse = response.data.choices[0].message.content;
+        console.log('📥 Respuesta DeepSeek:', aiResponse);
 
-        // Intentar parsear la respuesta JSON
-        try {
-            const parsed = JSON.parse(aiResponse);
+        // Intentar parsear la respuesta JSON con mejor manejo
+        const parsed = parseAIResponse(aiResponse);
+
+        if (parsed && parsed.action) {
             return parsed;
-        } catch (parseError) {
-            // Si no es JSON válido, crear una respuesta de error amigable
-            return {
-                action: 'error',
-                response: 'Perdón, no entendí bien. ¿Podrías decirme de nuevo tu gasto? Por ejemplo: "Compré un café de $25"',
-                error: aiResponse
-            };
         }
+
+        // Si no se pudo parsear, dar mensaje de error más útil
+        return {
+            action: 'error',
+            response: 'No pude procesar tu mensaje. Intenta algo como:\n• "Gasté $50 en café"\n• "Me gasté 100 pesos en comida"\n• "Compré snacks por $30"',
+            error: aiResponse
+        };
 
     } catch (error) {
         console.error('Error en DeepSeek API:', error.response?.data || error.message);

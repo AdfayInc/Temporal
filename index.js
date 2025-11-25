@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import './src/config/database.js'; // Inicializa SQLite automáticamente
 import { initializeWhatsApp } from './src/services/whatsapp.js';
 import { startServer } from './src/server.js';
+import { checkDeepSeekStatus } from './src/services/deepseek.js';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -20,6 +21,13 @@ async function main() {
     try {
         // La base de datos SQLite se inicializa automáticamente al importar
         console.log('✅ Base de datos SQLite lista');
+
+        // Verificar conexión con DeepSeek
+        console.log('🤖 Verificando DeepSeek AI...');
+        const deepseekOk = await checkDeepSeekStatus();
+        if (!deepseekOk) {
+            console.log('⚠️  DeepSeek no disponible - verifica tu API key en .env');
+        }
 
         // Inicializar servidor web
         console.log('🌐 Iniciando servidor web...');
